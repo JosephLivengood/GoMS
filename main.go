@@ -21,8 +21,5 @@ func main() {
 		_, _ = w.Write([]byte("welcome"))
 	})
 
-	err := http.ListenAndServe(":3000", r)
-	if err != nil {
-		return
-	}
+	_ = http.ListenAndServe(":3000", r)
 }
