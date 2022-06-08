@@ -2,24 +2,21 @@ package main
 
 import (
 	"net/http"
-	"time"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 func main() {
-	r := chi.NewRouter()
-	r.Use(middleware.RequestID)
-	r.Use(middleware.RealIP)
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
+	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+	if err != nil {
+		panic(err.Error())
+	}
 
-	r.Use(middleware.Timeout(60 * time.Second))
+	router := initRouter(initHandlers(initStores(db)))
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		_, _ = w.Write([]byte("welcome"))
-	})
-
-	_ = http.ListenAndServe(":3000", r)
+	err = http.ListenAndServe(":3000", router)
+	if err != nil {
+		panic(err.Error())
+	}
 }
