@@ -1,13 +1,13 @@
 package main
 
 import (
+	"GoMS/config"
 	"GoMS/stores"
-	"gorm.io/gorm"
 )
 
-func initStores(db *gorm.DB) (storeMap stores.StoreMap) {
+func initStores(config *config.Config) (storeMap stores.StoreMap) {
 
-	storeMap.Ping = stores.NewPingStore(db)
+	storeMap.Ping = stores.NewPingStore(config.DB.Primary)
 
 	return
 }

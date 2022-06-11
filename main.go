@@ -3,19 +3,15 @@ package main
 import (
 	"net/http"
 
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	. "GoMS/config"
 )
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
-	if err != nil {
-		panic(err.Error())
-	}
+	config := GetConfig()
 
-	router := initRouter(initHandlers(initStores(db)))
+	router := initRouter(initHandlers(initStores(config)))
 
-	err = http.ListenAndServe(":3000", router)
+	err := http.ListenAndServe(":3000", router)
 	if err != nil {
 		panic(err.Error())
 	}

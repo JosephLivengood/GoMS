@@ -1,0 +1,7 @@
+server:
+  port: 3000
+database:
+  primary:
+    connectionPath: ./test_gorm.db
+    user:
+    pass:
