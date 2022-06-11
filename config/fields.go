@@ -33,7 +33,11 @@ func populateFields(config *Config) {
 }
 
 func loadFieldsFromYaml(config *Fields) {
-	filePath := fmt.Sprintf("config.%s.yml", os.Getenv("ENV"))
+	env := os.Getenv("ENV")
+	if len(env) == 0 {
+		env = "local"
+	}
+	filePath := fmt.Sprintf("config.%s.yml", env)
 	file, err := os.Open(filePath)
 	if err != nil {
 		if strings.Contains(err.Error(), "no such file or directory") {
