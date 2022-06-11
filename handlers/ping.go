@@ -35,6 +35,7 @@ func (p pingHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	a, _ := json.Marshal(ping)
+	w.WriteHeader(http.StatusCreated)
 	w.Write(a)
 }
 
