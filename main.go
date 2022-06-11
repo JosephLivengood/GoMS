@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	. "GoMS/config"
@@ -9,9 +10,11 @@ import (
 func main() {
 	config := GetConfig()
 
-	router := initRouter(initHandlers(initStores(config)))
+	stores := initStores(config)
+	handlers := initHandlers(stores)
+	router := initRouter(handlers)
 
-	err := http.ListenAndServe(":3000", router)
+	err := http.ListenAndServe(fmt.Sprint(":", config.Fields.Server.Port), router)
 	if err != nil {
 		panic(err.Error())
 	}
