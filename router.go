@@ -22,6 +22,7 @@ func initRouter(handlerMap handlers.HandlerMap) (router chi.Router) {
 	router.Use(localMiddleware.JsonResponse)
 
 	router.Mount("/ping", routers.PingRouter(handlerMap))
+	router.Mount("/auth", routers.AuthRouter(handlerMap))
 
 	return
 }

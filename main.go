@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	. "GoMS/config"
+	conf "GoMS/config"
 )
 
 func main() {
-	config := GetConfig()
+	config := conf.GetConfig()
 
 	stores := initStores(config)
 	handlers := initHandlers(stores)

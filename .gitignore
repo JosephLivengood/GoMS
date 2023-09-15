@@ -1,3 +1,4 @@
 .idea/
 *.db
 cover.out
+.DS_Store
